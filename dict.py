@@ -38,6 +38,7 @@ def  print_help():
  quit - quit the program
  """)
     
+<<<<<<< HEAD
 def main():
     while True: ## REPL - Read Execute Program Loop
         cmd = input("Command: ")
@@ -62,3 +63,27 @@ def main():
             
 if __name__ == "__main__":
     main()
+=======
+
+while True: ## REPL - Read Execute Program Loop
+    cmd = input("Command: ")
+    if cmd == "list":
+        for i, wd, trans in read_dict(connection):
+            print(f"{i}: {wd} - {trans}")
+    elif cmd == "add":
+        word = input("  Word: ")
+        translation = input("  Translation: ")
+        add_word(connection, word, translation)
+        print(f" Added word {word}")
+        print(f" Added translation {translation}")
+    elif cmd == "delete":
+        ID = input("  ID: ")
+        delete_word(connection, ID)
+        print(f" You are deleted the {ID}")
+    elif cmd == "help":
+        print_help()
+    elif cmd == "quit":
+        print(f" You quited now!Thank you and Godbye!")
+        save_dict(connection)
+        exit()
+>>>>>>> cleanup
