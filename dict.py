@@ -1,31 +1,31 @@
 import psycopg2
-conn = psycopg2.connect(
+connection = psycopg2.connect(
    host="localhost",
    database="dict",
    user="dict",
    password="abc123"
 )
 # read_dict: returns the list of all dictionary entries:
-# argument: conn - the database connection.
-def read_dict(conn):
-    cur = conn.cursor()
+# argument: connection - the database connection.
+def read_dict(connection):
+    cur = connection.cursor()
     cur.execute("SELECT id, word, translation FROM dictionary;")
     rows = cur.fetchall()
     cur.close()
     return rows
 # add_word add new word and translation into the list
-def add_word(conn, word, translation):
-    cur = conn.cursor()
+def add_word(connection, word, translation):
+    cur = connection.cursor()
     cur.execute(f"INSERT INTO dictionary (word, translation) VALUES ('{word}', '{translation}');")
     cur.close()
 # delete_word delete from dictionary    
-def delete_word(conn, ID):
-    cur = conn.cursor()
+def delete_word(connection, ID):
+    cur = connection.cursor()
     cur.execute(f"DELETE FROM dictionary WHERE id = '{ID}';")
     cur.close()
 # save_dict save word into the dictionary    
-def save_dict(conn):
-    cur = conn.cursor()
+def save_dict(connection):
+    cur = connection.cursor()
     cur.execute("COMMIT;")
     cur.close()
 # print_help show help for application
@@ -42,20 +42,20 @@ def  print_help():
 while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ")
     if cmd == "list":
-        print(f" This is result of list command: {read_dict(conn)}")
+        print(f" This is result of list command: {read_dict(connection)}")
     elif cmd == "add":
         word = input("  Word: ")
         translation = input("  Translation: ")
-        add_word(conn, word, translation)
+        add_word(connection, word, translation)
         print(f" Added word {word}")
         print(f" Added translation {translation}")
     elif cmd == "delete":
         ID = input("  ID: ")
-        delete_word(conn, ID)
+        delete_word(connection, ID)
         print(f" You have deleted the {ID}")
     elif cmd == "help":
         print_help()
     elif cmd == "quit":
         print(f" You have quit now!Thank you and Godbye!")
-        save_dict(conn)
+        save_dict(connection)
         exit()
