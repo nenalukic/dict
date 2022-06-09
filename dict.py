@@ -1,8 +1,8 @@
 import psycopg2
 conn = psycopg2.connect(
    host="localhost",
-   database="database",
-   user="user",
+   database="dict",
+   user="dict",
    password="abc123"
 )
 
@@ -24,6 +24,15 @@ def save_dict(C):
     cur = C.cursor()
     cur.execute("COMMIT;")
     cur.close()
+def  print_help():
+    print("""Hello and welcome to the phone list, available commands:
+ add - add a phone number
+ delete - delete a contact
+ help - print the help
+ list - list all phone numbers
+ quit - quit the program
+ """)
+    
 
 while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ")
@@ -36,6 +45,8 @@ while True: ## REPL - Read Execute Program Loop
     elif cmd == "delete":
         ID = input("  ID: ")
         delete_word(conn, ID)
+    elif cmd == "help":
+        print_help()
     elif cmd == "quit":
         save_dict(conn)
         exit()
