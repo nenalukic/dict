@@ -42,7 +42,8 @@ def  print_help():
 while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ")
     if cmd == "list":
-        print(f" This is the list: {read_dict(connection)}")
+        for i, wd, trans in read_dict(connection):
+            print(f"{i}: {wd} - {trans}")
     elif cmd == "add":
         word = input("  Word: ")
         translation = input("  Translation: ")
