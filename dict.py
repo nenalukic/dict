@@ -38,24 +38,27 @@ def  print_help():
  quit - quit the program
  """)
     
-
-while True: ## REPL - Read Execute Program Loop
-    cmd = input("Command: ")
-    if cmd == "list":
-        print(f" This is result of list command: {read_dict(connection)}")
-    elif cmd == "add":
-        word = input("  Word: ")
-        translation = input("  Translation: ")
-        add_word(connection, word, translation)
-        print(f" Added word {word}")
-        print(f" Added translation {translation}")
-    elif cmd == "delete":
-        ID = input("  ID: ")
-        delete_word(connection, ID)
-        print(f" You have deleted the {ID}")
-    elif cmd == "help":
-        print_help()
-    elif cmd == "quit":
-        print(f" You have quit now!Thank you and Godbye!")
-        save_dict(connection)
-        exit()
+def main():
+    while True: ## REPL - Read Execute Program Loop
+        cmd = input("Command: ")
+        if cmd == "list":
+            print(f" This is result of list command: {read_dict(connection)}")
+        elif cmd == "add":
+            word = input("  Word: ")
+            translation = input("  Translation: ")
+            add_word(connection, word, translation)
+            print(f" Added word {word}")
+            print(f" Added translation {translation}")
+        elif cmd == "delete":
+            ID = input("  ID: ")
+            delete_word(connection, ID)
+            print(f" You have deleted the {ID}")
+        elif cmd == "help":
+            print_help()
+        elif cmd == "quit":
+            print(f" You have quit now!Thank you and Godbye!")
+            save_dict(connection)
+            exit()
+            
+if __name__ == "__main__":
+    main()
