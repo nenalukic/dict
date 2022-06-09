@@ -5,31 +5,36 @@ conn = psycopg2.connect(
    user="dict",
    password="abc123"
 )
-
-def read_dict(C):
-    cur = C.cursor()
+# read_dict: returns the list of all dictionary entries:
+# argument: conn - the database connection.
+def read_dict(conn):
+    cur = conn.cursor()
     cur.execute("SELECT id, word, translation FROM dictionary;")
     rows = cur.fetchall()
     cur.close()
     return rows
-def add_word(C, word, translation):
-    cur = C.cursor()
+# add_word add new word and translation into the list
+def add_word(conn, word, translation):
+    cur = conn.cursor()
     cur.execute(f"INSERT INTO dictionary (word, translation) VALUES ('{word}', '{translation}');")
     cur.close()
-def delete_word(C, ID):
-    cur = C.cursor()
+# delete_word delete from dictionary    
+def delete_word(conn, ID):
+    cur = conn.cursor()
     cur.execute(f"DELETE FROM dictionary WHERE id = '{ID}';")
     cur.close()
-def save_dict(C):
-    cur = C.cursor()
+# save_dict save word into the dictionary    
+def save_dict(conn):
+    cur = conn.cursor()
     cur.execute("COMMIT;")
     cur.close()
+# print_help show help for application
 def  print_help():
     print("""Hello and welcome to the phone list, available commands:
- add - add a phone number
- delete - delete a contact
+ add - add a new word
+ delete - delete from list
  help - print the help
- list - list all phone numbers
+ list - list dictinary
  quit - quit the program
  """)
     
@@ -37,16 +42,20 @@ def  print_help():
 while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ")
     if cmd == "list":
-        print(read_dict(conn))
+        print(f" This is the list: {read_dict(conn)}")
     elif cmd == "add":
-        name = input("  Word: ")
-        phone = input("  Translation: ")
-        add_word(conn, name, phone)
+        word = input("  Word: ")
+        translation = input("  Translation: ")
+        add_word(conn, word, translation)
+        print(f" Added word {word}")
+        print(f" Added translation {translation}")
     elif cmd == "delete":
         ID = input("  ID: ")
         delete_word(conn, ID)
+        print(f" You are deleted the {ID}")
     elif cmd == "help":
         print_help()
     elif cmd == "quit":
+        print(f" You quited now!Thank you and Godbye!")
         save_dict(conn)
         exit()
