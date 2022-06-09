@@ -42,7 +42,7 @@ def  print_help():
 while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ")
     if cmd == "list":
-        print(f" This is the list: {read_dict(conn)}")
+        print(f" This is result of list command: {read_dict(conn)}")
     elif cmd == "add":
         word = input("  Word: ")
         translation = input("  Translation: ")
@@ -52,10 +52,10 @@ while True: ## REPL - Read Execute Program Loop
     elif cmd == "delete":
         ID = input("  ID: ")
         delete_word(conn, ID)
-        print(f" You are deleted the {ID}")
+        print(f" You have deleted the {ID}")
     elif cmd == "help":
         print_help()
     elif cmd == "quit":
-        print(f" You quited now!Thank you and Godbye!")
+        print(f" You have quit now!Thank you and Godbye!")
         save_dict(conn)
         exit()
